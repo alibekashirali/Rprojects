@@ -1,18 +1,18 @@
 install.packages("asd") 
 library(asd)
 install.packages("data.table")
-library(data.table) # быстрая загрузка данных
+library(data.table) # Р±С‹СЃС‚СЂР°СЏ Р·Р°РіСЂСѓР·РєР° РґР°РЅРЅС‹С…
 
 df <- fread("~/data/Titanic/train.csv")
 test <- fread("~/data/Titanic/test.csv")
 
 str(df) # structure of data
-summary(df) # МЦТ of data
+summary(df) # РњР¦Рў of data
 head(df) # First N rows
 library(ggplot2) # library
 str(df) # structure of data
 
-# делим данные 70 на 30 
+# РґРµР»РёРј РґР°РЅРЅС‹Рµ 70 РЅР° 30 
 install.packages("ROSE")
 library(ROSE)
 library(caret)
@@ -28,7 +28,7 @@ df_test <- df[-index,]
 # data manipulation/ data engineering
 head(df)
 df_train$Name <- NULL
-# строим модель на 70% данных (трайн)
+# СЃС‚СЂРѕРёРј РјРѕРґРµР»СЊ РЅР° 70% РґР°РЅРЅС‹С… (С‚СЂР°Р№РЅ)
 # rpart(DP~ID,data)
 colnames(df)
 df_train$Ticket <- NULL
@@ -37,10 +37,10 @@ library(randomForest)
 des_rand <- randomForest(Survived~.,df_train, ntree=50)
 des_lm <- lm(Survived~.,df_train)
 
-des_tree <- rpart(Survived~.,df_train) # дерево решения 
+des_tree <- rpart(Survived~.,df_train) # РґРµСЂРµРІРѕ СЂРµС€РµРЅРёСЏ 
 df_train$Cabin <- NULL
 head(df_train)
-# вытаскиваем эффективность на 30% данных (тест)
+# РІС‹С‚Р°СЃРєРёРІР°РµРј СЌС„С„РµРєС‚РёРІРЅРѕСЃС‚СЊ РЅР° 30% РґР°РЅРЅС‹С… (С‚РµСЃС‚)
 test_res <- predict(des_lm,newdata=df_test)
 #
 roc.curve(df_test$Survived,test_res,plotit = FALSE)
